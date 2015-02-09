@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Dominion!</title>
+</head>
+<body>
+    <h1>Dominion randomizer</h1>
+    <p>This page chooses 10 random cards from Dominion, Dark Ages, Hinterlands, Intrigue, and Seaside.</p>
+    <br/>
+    <div id="cards"></div>
+    <script type="text/javascript">
+    function shuffle(array) {
+      var currentIndex = array.length, temporaryValue, randomIndex ;
+
+      // While there remain elements to shuffle...
+      while (0 !== currentIndex) {
+
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+
+        // And swap it with the current element.
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+      }
+
+      return array;
+    }
+
+    function main() {
+        var all = [
+            // Dark Ages
+            "DA - Poor House",
+            "DA - Beggar",
+            "DA - Squire",
+            "DA - Vagrant",
+            "DA - Forager",
+            "DA - Hermit",
+            "DA - Market Square",
+            "DA - Sage",
+            "DA - Storeroom",
+            "DA - Urchin",
+            "DA - Armory",
+            "DA - Death Cart",
+            "DA - Feodum",
+            "DA - Fortress",
+            "DA - Ironmonger",
+            "DA - Marauder",
+            "DA - Procession",
+            "DA - Rats",
+            "DA - Scavenger",
+            "DA - Wandering Minstrel",
+            "DA - Band of Misfits",
+            "DA - Bandit Camp",
+            "DA - Catacombs",
+            "DA - Count",
+            "DA - Counterfeit",
+            "DA - Cultist",
+            "DA - Graverobber",
+            "DA - Junk Dealer",
+            "DA - Knights",
+            "DA - Mystic",
+            "DA - Pillage",
+            "DA - Rebuild",
+            "DA - Rogue",
+            "DA - Altar",
+            "DA - Hunting Grounds",
+            // Dominion
+            "DO - Cellar",
+            "DO - Chapel",
+            "DO - Moat",
+            "DO - Chancellor",
+            "DO - Village",
+            "DO - Woodcutter",
+            "DO - Workshop",
+            "DO - Bureaucrat",
+            "DO - Feast",
+            "DO - Gardens",
+            "DO - Militia",
+            "DO - Moneylender",
+            "DO - Remodel",
+            "DO - Smithy",
+            "DO - Spy",
+            "DO - Thief",
+            "DO - Throne Room",
+            "DO - Council Room",
+            "DO - Festival",
+            "DO - Laboratory",
+            "DO - Library",
+            "DO - Market",
+            "DO - Mine",
+            "DO - Witch",
+            "DO - Adventurer",
+            // Hinterlands
+            "HI - Crossroads",
+            "HI - Duchess",
+            "HI - Fools Gold",
+            "HI - Develop",
+            "HI - Oasis",
+            "HI - Oracle",
+            "HI - Scheme",
+            "HI - Tunnel",
+            "HI - Jack of all Trades",
+            "HI - Noble Brigand",
+            "HI - Nomad Camp",
+            "HI - Silk Road",
+            "HI - Spice Merchant",
+            "HI - Trader",
+            "HI - Cache",
+            "HI - Cartographer",
+            "HI - Embassy",
+            "HI - Haggler",
+            "HI - Highway",
+            "HI - Ill-Gotten Gains",
+            "HI - Inn",
+            "HI - Mandarin",
+            "HI - Margrave",
+            "HI - Stables",
+            "HI - Border Village",
+            "HI - Farmland",
+            // Intrigue
+            "IN - Courtyard",
+            "IN - Pawn",
+            "IN - Secret Chamber",
+            "IN - Great Hall",
+            "IN - Masquerade",
+            "IN - Shanty Town",
+            "IN - Steward",
+            "IN - Swindler",
+            "IN - Wishing Well",
+            "IN - Baron",
+            "IN - Bridge",
+            "IN - Conspirator",
+            "IN - Coppersmith",
+            "IN - Ironworks",
+            "IN - Mining Village",
+            "IN - Scout",
+            "IN - Duke",
+            "IN - Minion",
+            "IN - Saboteur",
+            "IN - Torturer",
+            "IN - Trading Post",
+            "IN - Tribute",
+            "IN - Upgrade",
+            "IN - Harem",
+            "IN - Nobles",
+            // Seaside
+            "SE - Embargo",
+            "SE - Haven",
+            "SE - Lighthouse",
+            "SE - Native Village",
+            "SE - Pearl Diver",
+            "SE - Ambassador",
+            "SE - Fishing Village",
+            "SE - Lookout",
+            "SE - Smugglers",
+            "SE - Warehouse",
+            "SE - Caravan",
+            "SE - Cutpurse",
+            "SE - Island",
+            "SE - Navigator",
+            "SE - Pirate Ship",
+            "SE - Salvager",
+            "SE - Sea Hag",
+            "SE - Treasure Map",
+            "SE - Bazaar",
+            "SE - Explorer",
+            "SE - Ghost Ship",
+            "SE - Merchant Ship",
+            "SE - Outpost",
+            "SE - Tactician",
+            "SE - Treasury",
+            "SE - Wharf",
+            ]
+
+        shuffle(all);
+        var chosen = ["", "", "", "", "", "", "", "", "", ""];
+        for (i = 0; i < 10; i++) {
+            chosen[i] = all[i];
+        }
+        chosen.sort();
+        var output = "<br/>"
+        for (i = 0; i < 10; i++) { 
+           output = output + chosen[i] + "<br/>";
+        }
+        document.getElementById("cards").innerHTML = output;
+    }
+
+    main()
+    </script>
+
+</body>
+</html>
+
