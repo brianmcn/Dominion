@@ -44,26 +44,26 @@
 				"Storeroom",
 				"Urchin",
 				"Armory",
-				"Death Cart-Ruin",
+				"Death Cart",
 				"Feodum",
 				"Fortress",
 				"Ironmonger",
-				"Marauder-Ruin-Spoils",
+				"Marauder",
 				"Procession",
 				"Rats",
 				"Scavenger",
 				"Wandering Minstrel",
 				"Band of Misfits",
-				"Bandit Camp-Spoils",
+				"Bandit Camp",
 				"Catacombs",
 				"Count",
 				"Counterfeit",
-				"Cultist-Ruin",
+				"Cultist",
 				"Graverobber",
 				"Junk Dealer",
 				"Knights",
 				"Mystic",
-				"Pillage-Spoils",
+				"Pillage",
 				"Rebuild",
 				"Rogue",
 				"Altar",
@@ -93,7 +93,7 @@
 				"Library",
 				"Market",
 				"Mine",
-				"Witch-Curse",
+				"Witch",
 				"Adventurer"],
 			// Hinterlands
 			"HI": [
@@ -116,7 +116,7 @@
 				"Embassy",
 				"Haggler",
 				"Highway",
-				"Ill-Gotten Gains-Curse",
+				"Ill-Gotten Gains",
 				"Inn",
 				"Mandarin",
 				"Margrave",
@@ -144,7 +144,7 @@
 				"Duke",
 				"Minion",
 				"Saboteur",
-				"Torturer-Curse",
+				"Torturer",
 				"Trading Post",
 				"Tribute",
 				"Upgrade",
@@ -152,7 +152,7 @@
 				"Nobles"],
             // Seaside
 			"SE": [
-				"Embargo-Curse",
+				"Embargo",
 				"Haven",
 				"Lighthouse",
 				"Native Village",
@@ -168,7 +168,7 @@
 				"Navigator",
 				"Pirate Ship",
 				"Salvager",
-				"Sea Hag-Curse",
+				"Sea Hag",
 				"Treasure Map",
 				"Bazaar",
 				"Explorer",
@@ -190,7 +190,7 @@
 				"Masterpiece",
 				"Merchant Guild",
 				"Plaza",
-				"Soothsayer-Curse",
+				"Soothsayer",
 				"Stonemason",
 				"Taxman"]
             }
@@ -199,7 +199,8 @@
 		for(var set in all) {
 			var cards = all[set];
 			for(var i in cards) {
-				flat_all.push(set + " - " + cards[i]);
+			    var card = cards[i];
+				flat_all.push(set + " - " + card);
 			}
 		}
 
@@ -211,9 +212,7 @@
         chosen[9] += "*";
         chosen.sort();
 
-		var output = chosen;
-		
-        document.getElementById("cards").innerHTML = output.join("<BR>");
+        document.getElementById("cards").innerHTML = chosen.join("<BR>");
     }
 
     main()
