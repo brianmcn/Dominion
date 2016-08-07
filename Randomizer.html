@@ -1,238 +1,277 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <title>Dominion!</title>
-</head>
-<body>
-    <h1>Dominion randomizer</h1>
-    <p>This page chooses 10 random cards from Dominion, Dark Ages, Guilds, Hinterlands, Intrigue, and Seaside.</p>
-    <br/>
-    <div id="cards"></div>
-    <script type="text/javascript">
-    function shuffle(array) {
-      var currentIndex = array.length, temporaryValue, randomIndex ;
+    <head>
+        <meta charset="utf-8" />
+        <title>Dominion!</title>
+        <script type="text/javascript">
 
-      // While there remain elements to shuffle...
-      while (0 !== currentIndex) {
+var darkAges = [
+    "Altar",
+    "Armory",
+    "Band of Misfits",
+    ["Bandit Camp", "Spoils"],
+    "Beggar",
+    "Catacombs",
+    "Count",
+    "Counterfeit",
+    ["Cultist", "Ruins"],
+    ["Death Cart", "Ruins"],
+    "Feodum",
+    "Forager",
+    "Fortress",
+    ["Hermit", "Madman"],
+    "Graverobber",
+    "Hunting Grounds",
+    "Ironmonger",
+    "Junk Dealer",
+    "Knights",
+    "Market Square",
+    ["Marauder", "Ruins", "Spoils"],
+    "Mystic",
+    ["Pillage", "Spoils"],
+    "Poor House",
+    "Procession",
+    "Rats",
+    "Rebuild",
+    "Rogue",
+    "Sage",
+    "Scavenger",
+    "Squire",
+    "Storeroom",
+    "Urchin",
+    "Vagrant",
+    "Wandering Minstrel"];
+
+var dominion = [
+    "Cellar",
+    "Chapel",
+    "Moat",
+    "Chancellor",
+    "Village",
+    "Woodcutter",
+    "Workshop",
+    "Bureaucrat",
+    "Feast",
+    "Gardens",
+    "Militia",
+    "Moneylender",
+    "Remodel",
+    "Smithy",
+    "Spy",
+    "Thief",
+    "Throne Room",
+    "Council Room",
+    "Festival",
+    "Laboratory",
+    "Library",
+    "Market",
+    "Mine",
+    "Witch",
+    "Adventurer"];
+
+var hinterlands = [
+    "Crossroads",
+    "Duchess",
+    "Fools Gold",
+    "Develop",
+    "Oasis",
+    "Oracle",
+    "Scheme",
+    "Tunnel",
+    "Jack of all Trades",
+    "Noble Brigand",
+    "Nomad Camp",
+    "Silk Road",
+    "Spice Merchant",
+    "Trader",
+    "Cache",
+    "Cartographer",
+    "Embassy",
+    "Haggler",
+    "Highway",
+    "Ill-Gotten Gains",
+    "Inn",
+    "Mandarin",
+    "Margrave",
+    "Stables",
+    "Border Village",
+    "Farmland"];
+
+var intrigue = [
+    "Courtyard",
+    "Pawn",
+    "Secret Chamber",
+    "Great Hall",
+    "Masquerade",
+    "Shanty Town",
+    "Steward",
+    "Swindler",
+    "Wishing Well",
+    "Baron",
+    "Bridge",
+    "Conspirator",
+    "Coppersmith",
+    "Ironworks",
+    "Mining Village",
+    "Scout",
+    "Duke",
+    "Minion",
+    "Saboteur",
+    "Torturer",
+    "Trading Post",
+    "Tribute",
+    "Upgrade",
+    "Harem",
+    "Nobles"];
+
+var seaside = [
+    "Embargo",
+    "Haven",
+    "Lighthouse",
+    "Native Village",
+    "Pearl Diver",
+    "Ambassador",
+    "Fishing Village",
+    "Lookout",
+    "Smugglers",
+    "Warehouse",
+    "Caravan",
+    "Cutpurse",
+    "Island",
+    "Navigator",
+    "Pirate Ship",
+    "Salvager",
+    "Sea Hag",
+    "Treasure Map",
+    "Bazaar",
+    "Explorer",
+    "Ghost Ship",
+    "Merchant Ship",
+    "Outpost",
+    "Tactician",
+    "Treasury",
+    "Wharf"];
+
+var guilds = [
+    "Advisor",
+    "Baker",
+    "Butcher",
+    "Candlestick Maker",
+    "Doctor",
+    "Herald",
+    "Journeyman",
+    "Masterpiece",
+    "Merchant Guild",
+    "Plaza",
+    "Soothsayer",
+    "Stonemason",
+    "Taxman"];
+
+
+var all = {
+    "DA": darkAges,
+    "DO": dominion,
+    "HI": hinterlands,
+    "IN": intrigue,
+    "SE": seaside,
+    "GU": guilds};
+
+Array.prototype.shuffle = function () {
+    var currentIndex = this.length;
+
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
 
         // Pick a remaining element...
-        randomIndex = Math.floor(Math.random() * currentIndex);
+        var randomIndex = Math.floor(Math.random() * currentIndex);
         currentIndex -= 1;
 
         // And swap it with the current element.
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
-      }
-
-      return array;
+        var temporaryValue = this[currentIndex];
+        this[currentIndex] = this[randomIndex];
+        this[randomIndex] = temporaryValue;
     }
+}
 
-    function main() {
-        var all = {
-            // Dark Ages
-            "DA": [
-                "Poor House",
-                "Beggar",
-                "Squire",
-                "Vagrant",
-                "Forager",
-                ["Hermit","Madman"],
-                "Market Square",
-                "Sage",
-                "Storeroom",
-                "Urchin",
-                "Armory",
-                ["Death Cart", "Ruins"],
-                "Feodum",
-                "Fortress",
-                "Ironmonger",
-                ["Marauder", "Ruins", "Spoils"],
-                "Procession",
-                "Rats",
-                "Scavenger",
-                "Wandering Minstrel",
-                "Band of Misfits",
-                ["Bandit Camp", "Spoils"],
-                "Catacombs",
-                "Count",
-                "Counterfeit",
-                ["Cultist", "Ruins"],
-                "Graverobber",
-                "Junk Dealer",
-                "Knights",
-                "Mystic",
-                ["Pillage", "Spoils"],
-                "Rebuild",
-                "Rogue",
-                "Altar",
-                "Hunting Grounds"],
-            // Dominion
-            "DO": [
-                "Cellar",
-                "Chapel",
-                "Moat",
-                "Chancellor",
-                "Village",
-                "Woodcutter",
-                "Workshop",
-                "Bureaucrat",
-                "Feast",
-                "Gardens",
-                "Militia",
-                "Moneylender",
-                "Remodel",
-                "Smithy",
-                "Spy",
-                "Thief",
-                "Throne Room",
-                "Council Room",
-                "Festival",
-                "Laboratory",
-                "Library",
-                "Market",
-                "Mine",
-                ["Witch", "Curse"],
-                "Adventurer"],
-            // Hinterlands
-            "HI": [
-                "Crossroads",
-                "Duchess",
-                "Fools Gold",
-                "Develop",
-                "Oasis",
-                "Oracle",
-                "Scheme",
-                "Tunnel",
-                "Jack of all Trades",
-                "Noble Brigand",
-                "Nomad Camp",
-                "Silk Road",
-                "Spice Merchant",
-                "Trader",
-                "Cache",
-                "Cartographer",
-                "Embassy",
-                "Haggler",
-                "Highway",
-                ["Ill-Gotten Gains", "Curse"],
-                "Inn",
-                "Mandarin",
-                "Margrave",
-                "Stables",
-                "Border Village",
-                "Farmland"],
-            // Intrigue
-            "IN": [
-                "Courtyard",
-                "Pawn",
-                "Secret Chamber",
-                "Great Hall",
-                "Masquerade",
-                "Shanty Town",
-                "Steward",
-                "Swindler",
-                "Wishing Well",
-                "Baron",
-                "Bridge",
-                "Conspirator",
-                "Coppersmith",
-                "Ironworks",
-                "Mining Village",
-                "Scout",
-                "Duke",
-                "Minion",
-                "Saboteur",
-                ["Torturer", "Curse"],
-                "Trading Post",
-                "Tribute",
-                "Upgrade",
-                "Harem",
-                "Nobles"],
-            // Seaside
-            "SE": [
-                ["Embargo", "Curse"],
-                "Haven",
-                "Lighthouse",
-                "Native Village",
-                "Pearl Diver",
-                "Ambassador",
-                "Fishing Village",
-                "Lookout",
-                "Smugglers",
-                "Warehouse",
-                "Caravan",
-                "Cutpurse",
-                "Island",
-                "Navigator",
-                "Pirate Ship",
-                "Salvager",
-                ["Sea Hag", "Curse"],
-                "Treasure Map",
-                "Bazaar",
-                "Explorer",
-                "Ghost Ship",
-                "Merchant Ship",
-                "Outpost",
-                "Tactician",
-                "Treasury",
-                "Wharf"],
-            //Guilds
-            "GU": [
-                "Advisor",
-                "Baker",
-                "Butcher",
-                "Candlestick Maker",
-                "Doctor",
-                "Herald",
-                "Journeyman",
-                "Masterpiece",
-                "Merchant Guild",
-                "Plaza",
-                ["Soothsayer", "Curse"],
-                "Stonemason",
-                "Taxman"]
-            }
+Array.prototype.sortDashU = function( comparision ) {
+    this.sort( comparision );
+    for(var i = 0; i < this.length -1;) {
+        var current = this[i];
+        var next = this[i+1];
+        if(comparision(current, next) == 0) {
+            this.splice(i, 1);
+        } else {
+            i++
+        }
+    }
+}
 
-        var flat_all = [];
-        for(var set in all) {
+function Card(set, value) {
+    this.set = set;
+    if(typeof(value) == "string") {
+        this.name = value;
+        this.extra = [];
+    } else {
+        this.name = value[0];
+        this.extra = value.slice(1).map( function(i) {
+            return new Card(set, i);
+        })
+    }
+    return this;
+}
+
+Card.prototype.toString = function() {
+    return this.set + " - " + this.name;
+}
+
+Card.prototype.compareTo = function(lhs, rhs) {
+    i = lhs.set.localeCompare(rhs.set);
+    if(i != 0) return i;
+    return lhs.name.localeCompare(rhs.name);
+}
+
+function pickCards() {
+    var flat_all= [];
+    for(var set in all) {
+        var checkbox = document.getElementById(set);
+        if(checkbox.checked) {
             var cards = all[set];
-            for(var i in cards) {
-                var card = cards[i];
-                var value = [set, card];
-                flat_all.push(value);
+            for(var i = 0; i < cards.length; i++) {
+                var card = new Card(set, cards[i]);
+                flat_all.push(card);
             }
         }
-
-        shuffle(flat_all);
-        var chosen = [];
-        var extra = {};
-        for (i = 0; i < 10; i++) {
-            var set = flat_all[i][0];
-            var card = flat_all[i][1];
-            if(typeof(card) == "object")
-            {
-                for(var j = 1; j < card.length; j++) {
-                    extra[card[j]] = true;
-                }
-                card = card[0];
-            }
-            chosen[i] = set + " - " + card;
-        }
-        chosen[9] += "*";
-        chosen.sort();
-
-        for(var i in extra) {
-            chosen.push("E - " + i);
-        }
-
-        document.getElementById("cards").innerHTML = chosen.join("<BR>");
     }
 
-    main()
-    </script>
+    flat_all.shuffle();
+    var chosen = flat_all.slice(0,10);
+    var originalLength = chosen.length;
+    for(var i = 0; i < originalLength; i++) {
+        var card = chosen[i];
+        chosen = chosen.concat(card.extra);
+    }
 
-</body>
+    chosen.sortDashU( Card.prototype.compareTo );
+
+    document.getElementById("cards").innerHTML = chosen.join("<BR>");
+}
+        </script>
+
+    </head>
+    <body onload="pickCards()">
+        <h1>Dominion randomizer</h1>
+        <p>This page chooses 10 random cards from
+        <ul>
+            <li><input id=DO type=checkbox checked onchange="pickCards()">Dominion</input></li>
+            <li><input id=DA type=checkbox checked onchange="pickCards()">Dark Ages</input></li>
+            <li><input id=GU type=checkbox checked onchange="pickCards()">Guilds</input></li>
+            <li><input id=HI type=checkbox checked onchange="pickCards()">Hinterlands</input></li>
+            <li><input id=IN type=checkbox checked onchange="pickCards()">Intrigue</input></li>
+            <li><input id=SE type=checkbox checked onchange="pickCards()">Seaside</input></li>
+        </ul>
+        <input type=button onclick="pickCards()" value="Pick Again"></input>
+        <br/>
+        <div id="cards"></div>
+    </body>
 </html>
 
