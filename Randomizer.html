@@ -46,19 +46,19 @@ var dominion = [
     "Cellar",
     "Chapel",
     "Moat",
-    "Chancellor",
+    "Harbinger",
     "Village",
-    "Woodcutter",
+    "Merchant",
     "Workshop",
     "Bureaucrat",
-    "Feast",
+    "Vassal",
     "Gardens",
     "Militia",
     "Moneylender",
     "Remodel",
     "Smithy",
-    "Spy",
-    "Thief",
+    "Bandit",
+    "Poacher",
     "Throne Room",
     "Council Room",
     "Festival",
@@ -67,7 +67,9 @@ var dominion = [
     "Market",
     "Mine",
     "Witch",
-    "Adventurer"];
+    "Sentry",
+    "Artisan",
+  ];
 
 var hinterlands = [
     "Crossroads",
@@ -167,6 +169,41 @@ var guilds = [
     "Stonemason",
     "Taxman"];
 
+var nocturne = [
+    ["Druid", "Boons"],
+    "Faithful Hound",
+    "Guardian",
+    "Monastery",
+    ["Pixie", "Boons", "Goat"],
+    ["Tracker", "Boons", "Pouch"],
+    "Changeling",
+    ["Fool", "Lost in the Woods", "Boons", "Lucky Coin"],
+    "Ghost Town",
+    ["Leprechaun", "Wish", "Hex"],
+    "Night Watchman",
+    ["Secret Cave", "Magic Lamp"],
+    ["Bard", "Boons"],
+    ["Blessed Village", "Boons"],
+    ["Cemetery", "Haunted Mirror"],
+    "Conclave",
+    ["Devil's Workshop", "Imp"],
+    ["Exorcist", "Imp", "Will o' Wisp", "Ghost"],
+    ["Necromancer", "Zombies"],
+    ["Shepherd", "Pasture"],
+    ["Skulk", "Hexes"], 
+    "Cobbler",
+    "Crypt",
+    ["Cursed Village", "Hexes"],
+    "Den of Sin",
+    ["Idol", "Boons", "Curse"], 
+    ["Pooka", "Cursed Gold"],
+    ["Sacred Grove", "Boons"], 
+    ["Tormentor", "Imp", "Hexes"],
+    "Tragic Hero",
+    ["Vampire", "Hexes", "Bat"],
+    ["Werewolf", "Hexes"],
+    "Raider",
+   ];
 
 var all = {
     "DA": darkAges,
@@ -174,7 +211,9 @@ var all = {
     "HI": hinterlands,
     "IN": intrigue,
     "SE": seaside,
-    "GU": guilds};
+    "GU": guilds,
+    "NO": nocturne
+  };
 
 Array.prototype.shuffle = function () {
     var currentIndex = this.length;
@@ -214,7 +253,7 @@ function Card(set, value) {
     } else {
         this.name = value[0];
         this.extra = value.slice(1).map( function(i) {
-            return new Card(set, i);
+            return new Card(set, i + "*");
         })
     }
     return this;
@@ -268,6 +307,7 @@ function pickCards() {
             <li><input id=HI type=checkbox checked onchange="pickCards()">Hinterlands</input></li>
             <li><input id=IN type=checkbox checked onchange="pickCards()">Intrigue</input></li>
             <li><input id=SE type=checkbox checked onchange="pickCards()">Seaside</input></li>
+            <li><input id=NO type=checkbox checked onchange="pickCards()">Nocturne</input></li>
         </ul>
         <input type=button onclick="pickCards()" value="Pick Again"></input>
         <br/>
