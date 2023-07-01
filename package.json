@@ -5,7 +5,8 @@
 	"scripts": {
 		"dev": "vite",
 		"build": "vite build",
-		"preview": "vite preview"
+		"preview": "vite preview",
+    "docs": "vite build;rm -rf docs;mv dist docs;perl -i -pe 's/\\/assets/assets/' docs/index.html"
 	},
 	"dependencies": {
 		"preact": "^10.15.1"
