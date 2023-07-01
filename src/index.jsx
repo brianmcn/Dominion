@@ -1,11 +1,11 @@
-import { render, Component } from 'preact';
 import './style.css';
-import {AllDecks, DeckNames} from './data.js';
+import { AllDecks, DeckNames } from './data.js';
+import { Component, render } from 'preact';
 
 class App extends Component {
   constructor() {
     super();
-    let state = Object.fromEntries(Object.keys(AllDecks).map( key => [key+'_checked', true]));
+    const state = Object.fromEntries(Object.keys(AllDecks).map( key => [`${key}_checked`, true]));
     state.chosen = [];
     state.locked = [];
     this.state = state;
@@ -14,25 +14,25 @@ class App extends Component {
   toggleCardLock = e => {
     const key = e.target.id.slice(0, -("_locked".length));
 
-    let locked = this.state.locked;
-    let index = locked.indexOf(key);
+    const { locked } = this.state;
+    const index = locked.indexOf(key);
     if (index == -1) {
       locked.push(key);
     } else {
       locked.splice(index, 1);
     }
-    this.setState( {locked});
+    this.setState( { locked });
   };
 
   toggleDeck = e => {
-    const key = e.target.id + '_checked';
+    const key = `${e.target.id }_checked`;
 
     const newState = {};
     newState[key] = !this.state[key];
     this.setState( newState );
   };
 
-  shuffle = (a) => {
+  shuffle = a => {
     let currentIndex = a.length;
 
     // While there remain elements to shuffle...
@@ -48,50 +48,50 @@ class App extends Component {
     }
   }
 
-  pickCards = (_) => {
+  pickCards = () => {
     const flatAll= Object.keys(AllDecks).flatMap(
-      set => this.state[set+'_checked'] ?
-        AllDecks[set].map( card => set + ' - ' + card) :
+      set => this.state[`${set}_checked`] ?
+        AllDecks[set].map( card => `${set } - ${ card}`) :
         []);
 
     this.shuffle(flatAll);
     let chosen= flatAll.filter(v => !this.state.locked.includes(v)).slice(0, 10-this.state.locked.length);
     chosen = this.state.locked.concat(chosen);
     chosen.sort();
-    this.setState({chosen});
+    this.setState({ chosen });
   }
 
-	render() {
+  render() {
     return (
       <>
         <h1>DOMINON! randomizer</h1>
         <div>
-           {
-             Object.keys(DeckNames).sort().map( name => (
-               <div>
-                 <label>
-                   <input id={DeckNames[name]} type='checkbox' checked={this.state[DeckNames[name]+'_checked']}
-                   onclick={this.toggleDeck}/>
-                   {name}
-                 </label>
-               </div>)
-             )
-           }
+          {
+            Object.keys(DeckNames).sort().map( name => (
+              <div key={name}>
+                <label>
+                  <input id={DeckNames[name]} type='checkbox' checked={this.state[`${DeckNames[name]}_checked`]}
+                    onclick={this.toggleDeck} />
+                  {name}
+                </label>
+              </div>)
+            )
+          }
         </div>
         <button id='pickButton' onclick={this.pickCards}>Pick Cards</button>
         <div id='cards' >
           {
             this.state.chosen.map( v => (
-              <div id={v+'_locked'} class='card' onclick={this.toggleCardLock}>
+              <div id={`${v}_locked`} class='card' onclick={this.toggleCardLock} key={v}>
                 <span class={this.state.locked.includes(v) ? 'locked' : 'unlocked' }>
-                {this.state.locked.includes(v) ?  '🔒' : '🔓'}</span>
+                  {this.state.locked.includes(v) ? '🔒' : '🔓'}</span>
                 {v}
               </div>
             ))
           }
         </div>
       </>
-	);
+    );
   }
 }
 
